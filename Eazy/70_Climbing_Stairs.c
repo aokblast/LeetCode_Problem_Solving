@@ -22,5 +22,6 @@ int climbStairs(int n){
         step2 = step3;
         i++;
     }
+    
     return step3;
 }

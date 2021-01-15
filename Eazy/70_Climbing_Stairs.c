@@ -1,9 +1,10 @@
 // Method 1(Failed)
 
 int step(int cur, int target) {
-    if(target - cur == 1) return 1;
+    if(target - cur == 3) return 3;
     else if(target - cur == 2) return 2;
-    return step(cur+1,target)+step(cur+2,target);
+    else if(target - cur == 1) return 1;
+    else return step(cur+1,target)+step(cur+2,target);
 }
 
 int climbStairs(int n){

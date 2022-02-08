@@ -1,6 +1,7 @@
 //
-//Runtime 0 
-//Memory Usage 5.9
+//Runtime 0
+//Memory Usage 7.6
+
 class Solution {
 public:
     vector<int> constructArray(int n, int k) {

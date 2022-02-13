@@ -1,27 +1,45 @@
-//sort
-//Runtime 4
-//Memory Usage 9.8
+//bfs
+//Runtime 78
+//Memory Usage 20.1
 
 class Solution {
 public:
-    int threeSumClosest(vector<int>& nums, int target) {
-       	sort(nums.begin(), nums.end());
-	   	int len = nums.size();
- 		int diff = INT_MAX, ans = abs(nums[0] + nums[1] + nums[2] - target);
-		for(int i = 0; i < len; ++i){
-			if((len - i ) > 3 && target < nums[i] * 3) return min(ans, nums[i] + nums[i + 1] + nums[i + 2]);
-            if (i>0 and nums[i] == nums[i-1]) continue;
-			int left = i + 1;
-			int right = len - 1;
-			while(left < right){
-				int sum = nums[i] + nums[left] + nums[right];
-				int nDiff = abs(sum - target);
-				if(diff > nDiff) ans = sum, diff = nDiff;
-				if(sum > target) --right;
-				else if(sum < target) ++left;
-                else return sum;
-			}
-		}
-		return ans;		
+    int openLock(vector<string>& deadends, string target) {
+        unordered_set<int> vis;
+        for(const auto &dead : deadends)
+            vis.insert(stoi(dead));
+        queue<int> q;
+        q.push(0);
+        if(!vis.insert(0).second)
+            return -1;
+        int res = 0;
+        int t = stoi(target);
+        if(0 == t)
+            return 0;
+        while(!q.empty()){
+            ++res;
+            int sz = q.size();
+            while(sz--){
+                int f = q.front(); q.pop();
+                for(int i = 0; i < 4; ++i){
+                    int base = pow(10, i);
+                    int cur = (f / base) % 10;
+                    int cf = f - cur * base;
+                    for(int j = -1; j <= 1; ++j){
+                        if(j == 0)
+                            continue;
+                        int nc = (cur + j + 10) % 10;
+                        int nf = nc * base + cf;
+                        if(nf == t)
+                            return res;
+                        if(vis.find(nf) == vis.end())
+                            vis.insert(nf), q.push(nf);
+                    }
+                }
+                
+            }
+           
+        }
+        return -1;
     }
 };
